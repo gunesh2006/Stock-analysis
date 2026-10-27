@@ -20,24 +20,20 @@ with col1:
 
 st.subheader("Predicitng next 30 days close price for: "+ticker)
 
-st.write("Step 1: Fetching data")
 close_price=get_data(ticker)
 
-st.write("Step 2: Calculating rolling mean")
 rolling_price=get_rolling_mean(close_price)
 
-st.write("Step 3: Finding differencing order")
 difference_order=get_differencing_order(rolling_price)
 
-st.write("Step 4: Scaling data")
+
 scaled_data,scaler=scaling(rolling_price)
 
-st.write("Step 5: Evaluating model")
 rmse=evaluate_model(scaled_data,difference_order)
 
 st.write("**Model RMSE Score:** ",rmse)
 
-st.write("Step 6: Generating forecast")
+
 forecast=get_forecast(scaled_data,difference_order)
 
 forecast['Close']=inverse_scaling(scaler,forecast['Close'])
